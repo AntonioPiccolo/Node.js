@@ -2,9 +2,12 @@ const express = require("express");
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const productRoutes = require('./api/routes/products');     // Imposto i routes per le richieste dei prodotti
 const orderRoutes = require('./api/routes/orders');         // Imposto i routes per le richieste degli ordini
+
+mongoose.connect('mongodb+srv://nodejs:' + process.env.MONGO_ATLAS_PW + '@node-exemple-kjcjp.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
 
 app.use(morgan('dev'));                                     // Il server restart automaticamente ad ogni modifica dei files
 app.use(bodyParser.urlencoded({extended: false}));          // Permetto di leggere i dati in entrata (URL-encoded)
